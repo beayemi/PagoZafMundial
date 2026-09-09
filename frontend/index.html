@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Botín del Mar | Hermandad de la Costa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="pirate-header">
+    <div class="logo-area">
+      <span class="skull-icon">☠️</span>
+      <h1>Hermandad de la Costa</h1>
+    </div>
+    <div class="lang-selector">
+      <button class="btn-lang" onclick="changeLanguage('es')">🇪🇸 ES</button>
+      <button class="btn-lang" onclick="changeLanguage('en')">🇬🇧 EN</button>
+    </div>
+    <div class="cart-trigger" id="cartTrigger">
+      <span>📜 Cofre de Compras</span>
+      <span class="badge" id="cartCount">0</span>
+    </div>
+  </header>
+
+  <div id="productModal" class="product-modal">
+    <div class="product-content" style="text-align: center;">
+      <div class="product-header">
+        <h3 id="modalProdTitle"></h3>
+        <button class="close-btn" id="closeProductModal">&times;</button>
+      </div>
+      <div class="cart-body" style="padding: 1rem 0;">
+        <img id="modalProdImg" src="" alt="" style="width: 100%; height: 250px; object-fit: cover; border-radius: 6px; border: 2px solid var(--wood-light); margin-bottom: 1rem;">
+        <p id="modalProdDesc" style="font-family: 'Crimson Text', serif; font-size: 1.2rem; color: var(--text-dark); margin-bottom: 1.5rem;"></p>
+        <div id="modalProdExtra" style="font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: bold; color: var(--wood-dark);"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero-banner">
+      <h2 id="hero-title">Suministros & Botines del Mar</h2>
+      <p id="hero-subtitle">Selecciona tus provisiones, grumete. Aceptamos monedas locales e internacionales.</p>
+    </section>
+
+    <div class="product-grid" id="productGrid"></div>
+  </main>
+
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h3>💰 <span id="cart-title-text">Tu Botín Seleccionado</span></h3>
+        <button class="close-btn" id="closeCart">&times;</button>
+      </div>
+      <div class="cart-body" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="total-row">
+          <span>Total:</span>
+          <span id="cartTotal">$0 CLP</span>
+        </div>
+        <button class="btn-pirate" id="checkoutBtn">Pagar con Mercado Pago 💳</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      es: {
+        heroTitle: "Suministros & Botines del Mar",
+        heroSubtitle: "Selecciona tus provisiones, Hermano. Aceptamos monedas locales e internacionales.",
+        cartTitle: "Tu Botín Seleccionado",
+        checkout: "Pagar con Mercado Pago 💳",
+        stock: "Stock:",
+        qty: "Cant:",
+        addToCart: "Al Cofre",
+        soldOut: "Agotado"
+      },
+      en: {
+        heroTitle: "Supplies & Sea Spoils",
+        heroSubtitle: "Select your provisions, Brother. We accept local and international coins.",
+        cartTitle: "Your Selected Booty",
+        checkout: "Pay with Mercado Pago 💳",
+        stock: "Stock:",
+        qty: "Qty:",
+        addToCart: "To Chest",
+        soldOut: "Sold Out"
+      }
+    };
+
+    // Reemplaza los IDs (1, 2, 3...) por los que realmente te devuelva tu base de datos si usa _id de MongoDB
+    const productTranslations = {
+      "1": {
+        es: { title: "Tentáculo de Kraken", description: "Recién cortado de la bestia marina." },
+        en: { title: "Kraken Tentacle", description: "Freshly cut from the beast itself." }
+      },
+      "2": {
+        es: { title: "Escamas de Sirena", description: "Escamas brillantes encontradas en el abismo profundo." },
+        en: { title: "Mermaid Scales", description: "Shimmering scales found in the deep abyss." }
+      },
+      "3": {
+        es: { title: "Doblon Maldito", description: "Una moneda antigua que susurra en la oscuridad." },
+        en: { title: "Cursed Doubloon", description: "An ancient coin that whispers in the dark." }
+      },
+      "4": {
+        es: { title: "Ron de Naufragio", description: "Añejado 50 años en el fondo del mar." },
+        en: { title: "Shipwreck Rum", description: "Aged 50 years at the bottom of the sea." }
+      }
+    };
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

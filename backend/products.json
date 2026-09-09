@@ -1,0 +1,23 @@
+[
+  {
+    "id": "p1",
+    "title": "Ron Reserva del Capitán",
+    "price": 15000,
+    "stock": 10,
+    "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "p2",
+    "title": "Mapa del Tesoro Encintado",
+    "price": 50,
+    "stock": 5,
+    "image": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "p3",
+    "title": "Catalejo de Bronce Pirata",
+    "price": 22000,
+    "stock": 3,
+    "image": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80"
+  }
+]
