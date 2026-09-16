@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3001/api';
+// Si usaste la ruta /api en tu backend, agrégala al final
+const API_URL = 'https://pagozafmundial.onrender.com/api';
 let products = [];
 let productDictionary = new Map(); // Caché para búsquedas O(1)
 let currentLang = localStorage.getItem('pirate_lang') || (navigator.language.startsWith('en') ? 'en' : 'es');
