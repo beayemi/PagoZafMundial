@@ -1,28 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Pirata+One&family=IM+Fell+English:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap');
 
 :root {
-  /* Paleta Pirata Real: Caoba, Pergamino, Oro Viejo y Profundidades del Océano */
-  --bg-deep: #07090e;
-  --bg-ocean: #0d121c;
-  --bg-parchment: #161b26;
-  --bg-card: rgba(18, 24, 36, 0.9);
+  /* Paleta God Tier - Azul Marino Profundo y Oro Vibrante */
+  --bg-base: #0f141e;      
+  --bg-surface: #1a2130;   
+  --bg-surface-hover: #232c3f;
   
-  --wood-dark: #1b120c;
-  --wood-light: #2c1d13;
+  --gold-pure: #e2c044;    
+  --gold-muted: #b89728;
+  --gold-glow: rgba(226, 192, 68, 0.15);
   
-  --gold-antique: #d4af37;
-  --gold-bright: #f3e5ab;
-  --gold-dark: #8c7323;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
   
-  --blood-rust: #8b261e;
-  --sea-foam: #4a7c82;
+  --danger: #e63946;
+  --danger-dim: rgba(230, 57, 70, 0.1);
   
-  --text-parchment: #e6dfcc;
-  --text-muted: #949aa8;
-  
-  --border-pirate: rgba(212, 175, 55, 0.25);
-  --border-gold-glow: 0 0 20px rgba(212, 175, 55, 0.3);
-  --shadow-chest: 0 25px 60px rgba(3, 5, 8, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.08);
 }
 
 *, *::before, *::after {
@@ -30,318 +24,293 @@
 }
 
 body {
-  background-color: var(--bg-deep);
-  color: var(--text-parchment);
-  font-family: 'IM Fell English', serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(74, 124, 130, 0.12) 0%, transparent 60%),
-    radial-gradient(circle at 10% 90%, rgba(139, 38, 30, 0.08) 0%, transparent 40%),
-    linear-gradient(to bottom, var(--bg-deep), var(--bg-ocean));
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header Taberna Pirata */
+/* Header Premium */
 .pirate-header {
-  background: rgba(13, 18, 28, 0.9);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-bottom: 2px solid var(--gold-dark);
+  background: rgba(15, 20, 30, 0.98); /* Más opaco para no depender del blur */
+  border-bottom: 1px solid var(--border-subtle);
   position: sticky;
   top: 0;
   z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 3rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  padding: 1rem 1.5rem;
+  transform: translateZ(0); 
+  will-change: transform;
 }
 
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 15px;
-  font-family: 'Pirata One', cursive;
-  font-size: 2.2rem;
-  letter-spacing: 2px;
-  color: var(--gold-bright);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.4);
+  gap: 12px;
 }
 
+.logo-area h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* Selector de Idiomas Moderno (Píldora) */
+.lang-selector {
+  display: flex;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: 30px;
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-lang {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.btn-lang:hover {
+  color: var(--text-primary);
+}
+
+.btn-lang.active {
+  background: var(--gold-pure);
+  color: #000;
+  box-shadow: 0 2px 10px rgba(226, 192, 68, 0.4);
+}
+
+/* Botón del Cofre (Dorado y visible) */
 .cart-trigger {
-  background: linear-gradient(135deg, var(--wood-light), var(--wood-dark));
-  border: 1px solid var(--gold-antique);
-  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--gold-pure), var(--gold-muted));
+  border: none;
+  padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-  font-family: 'Cinzel Decorative', cursive;
-  color: var(--gold-bright);
+  gap: 10px;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
   font-weight: 700;
+  box-shadow: 0 4px 15px rgba(226, 192, 68, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cart-trigger:hover {
-  border-color: var(--gold-bright);
-  box-shadow: var(--border-gold-glow);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(226, 192, 68, 0.5);
 }
 
-.badge {
-  background: var(--blood-rust);
-  color: #fff;
-  font-family: 'IM Fell English', serif;
-  font-weight: 700;
+.cart-trigger:active {
+  transform: scale(0.95);
+}
+
+.cart-trigger .badge {
+  background: #000;
+  color: var(--gold-pure);
   padding: 2px 8px;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  border-radius: 6px;
+  font-size: 0.8rem;
 }
 
 /* Contenedor y Hero */
 .container {
-  max-width: 1300px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 3rem 1.5rem;
 }
 
 .hero-banner {
   text-align: center;
   margin-bottom: 4rem;
-  position: relative;
-}
-
-.hero-banner::after {
-  content: '⚓';
-  display: block;
-  font-size: 1.5rem;
-  color: var(--gold-antique);
-  margin-top: 1rem;
-  opacity: 0.8;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 .hero-banner h2 {
-  font-family: 'Pirata One', cursive;
-  font-size: 4rem;
-  letter-spacing: 3px;
-  margin-bottom: 0.5rem;
-  color: var(--gold-bright);
-  text-shadow: 3px 3px 6px rgba(0,0,0,0.9);
+  font-family: 'Cinzel', serif;
+  font-size: 2.5rem;
+  color: var(--gold-pure);
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.5px;
 }
 
 .hero-banner p {
-  color: var(--text-muted);
-  font-size: 1.25rem;
-  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
-/* Grid de Productos */
+/* Grid de Productos - Ajustado para no romper en móvil */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
 }
 
-/* Tarjetas Cofre de Tesoro */
+/* Tarjetas God Tier - Puro diseño limpio y acelerado por hardware */
 .card {
-  background: var(--bg-card);
-  border: 2px solid var(--border-pirate);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  position: relative;
-  box-shadow: var(--shadow-chest);
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  border: 1px solid var(--gold-antique);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  transform: translateZ(0); 
+  /* Le avisa al navegador qué propiedades van a cambiar */
+  will-change: transform, border-color, background-color; 
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  border-color: var(--gold-antique);
-  box-shadow: 0 30px 70px rgba(0,0,0,0.9), var(--border-gold-glow);
-}
-
-.card:hover::before {
-  opacity: 1;
+  border-color: var(--gold-muted);
+  background: var(--bg-surface-hover);
 }
 
 .card-img-container {
   width: 100%;
-  height: 220px;
+  height: 240px;
+  background: #000;
   overflow: hidden;
-  background: #040609;
-  position: relative;
-  border-bottom: 1px solid var(--border-pirate);
-}
-
-.card-img-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(7, 9, 14, 0.9));
 }
 
 .card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
-  filter: sepia(20%) contrast(110%);
+  opacity: 0.9;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  will-change: transform, opacity;
 }
 
 .card:hover .card-img {
-  transform: scale(1.06);
+  transform: scale(1.03);
+  opacity: 1;
 }
 
 .card-body {
-  padding: 1.75rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .card-title {
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  color: var(--gold-bright);
-  line-height: 1.3;
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
 }
 
 .card-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .price-tag {
-  font-family: 'Cinzel Decorative', cursive;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--gold-antique);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--gold-pure);
 }
 
 .stock-tag {
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--text-muted);
-  background: rgba(0,0,0,0.3);
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.stock-tag.low {
-  color: #ff6b6b;
-  background: rgba(139, 38, 30, 0.15);
-  border-color: rgba(139, 38, 30, 0.4);
-}
+.stock-tag.low { color: var(--danger); }
 
+/* Botones y Controles */
 .card-actions {
   display: flex;
-  gap: 12px;
-  align-items: center;
+  gap: 8px;
   margin-top: auto;
 }
 
 .quantity-control {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(5, 7, 10, 0.6);
-  border: 1px solid var(--border-pirate);
-  padding: 8px 10px;
-  border-radius: 8px;
-}
-
-.quantity-control label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 0 8px;
 }
 
 .qty-input {
   background: transparent;
   border: none;
-  color: var(--gold-bright);
-  width: 25px;
+  color: var(--text-primary);
+  width: 30px;
   text-align: center;
-  font-weight: 700;
-  font-size: 1rem;
-  font-family: 'IM Fell English', serif;
-}
-
-.qty-input:focus {
-  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
 }
 
 .btn-pirate {
-  background: linear-gradient(135deg, var(--gold-antique), var(--gold-dark));
-  color: #07090e;
-  border: 1px solid #ffe875;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-family: 'Cinzel Decorative', cursive;
-  font-weight: 700;
+  background: var(--text-primary);
+  color: var(--bg-base);
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
   flex-grow: 1;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-pirate:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .btn-pirate:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold-antique));
-  box-shadow: var(--border-gold-glow);
-  transform: translateY(-2px);
+  background: var(--gold-pure);
 }
 
 .btn-pirate:disabled {
-  background: #151922;
-  color: #4a5263;
-  border-color: #252b38;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
   cursor: not-allowed;
-  box-shadow: none;
-  text-shadow: none;
 }
 
-/* Modales Pergamino / Cofre Flotante */
+/* Modales (Sin Blur en Móvil para evitar lag) */
 .product-modal, .cart-modal {
   position: fixed;
   inset: 0;
-  background: rgba(3, 5, 8, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.2s ease;
   z-index: 1000;
+  will-change: opacity;
 }
 
 .product-modal.open, .cart-modal.open {
@@ -350,227 +319,120 @@ body {
 }
 
 .product-content, .cart-content {
-  background: linear-gradient(180deg, #111722, #0a0d14);
-  border: 2px solid var(--gold-antique);
-  border-radius: 16px;
-  width: 90%;
-  max-width: 520px;
-  padding: 2.5rem;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), var(--border-gold-glow);
-  transform: scale(0.9) translateY(20px);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem;
+  transform: translateY(20px);
+  transition: transform 0.2s ease;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
-  max-height: 85vh;
+  will-change: transform;
 }
 
 .product-modal.open .product-content, .cart-modal.open .cart-content {
-  transform: scale(1) translateY(0);
+  transform: translateY(0);
 }
 
-.cart-header, .product-header {
+/* Detalles del Carrito */
+.cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-pirate);
-  padding-bottom: 1.25rem;
-  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1rem;
 }
 
-.cart-header h3, .product-header h3 {
-  font-family: 'Pirata One', cursive;
-  font-size: 2rem;
-  letter-spacing: 1px;
+.cart-header h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: var(--gold-pure);
   margin: 0;
-  color: var(--gold-bright);
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 .close-btn {
-  background: rgba(139, 38, 30, 0.2);
-  border: 1px solid rgba(139, 38, 30, 0.5);
-  color: #ff8080;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  background: var(--danger-dim);
+  border: none;
+  color: var(--danger);
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.close-btn:hover {
-  background: var(--blood-rust);
-  color: #fff;
-  border-color: var(--gold-antique);
-}
-
-/* Contenedor del Carrito con Scroll Estilizado */
 .cart-items-container {
   overflow-y: auto;
   flex-grow: 1;
-  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-right: 4px;
+  margin-bottom: 1.5rem;
 }
 
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(18, 24, 36, 0.6);
-  border: 1px solid var(--border-pirate);
-  padding: 1rem;
-  border-radius: 10px;
-}
-
-.cart-item-details h4 {
-  margin: 0 0 4px 0;
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 0.95rem;
-  color: var(--gold-bright);
-}
-
-.cart-item-details p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.cart-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.cart-item-total {
-  font-family: 'Cinzel Decorative', cursive;
-  font-weight: 700;
-  color: var(--gold-antique);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .btn-remove {
-  background: transparent;
+  background: none;
   border: none;
-  color: #ff6b6b;
+  color: var(--danger);
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.2s;
+  font-size: 1.2rem;
 }
 
-.btn-remove:hover {
-  background: rgba(139, 38, 30, 0.2);
-}
-
-/* Footer del Carrito */
 .cart-footer {
-  border-top: 1px solid var(--border-pirate);
-  padding-top: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  flex-shrink: 0;
+  padding-top: 1rem;
 }
 
 .cart-total-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-family: 'Cinzel Decorative', cursive;
   font-size: 1.1rem;
-  color: var(--text-parchment);
-}
-
-.cart-total-row span:last-child {
-  color: var(--gold-bright);
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
 }
 
 .btn-checkout {
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold-antique));
-  color: #07090e;
-  border: 1px solid #fff;
+  background: var(--gold-pure);
+  color: #000;
+  border: none;
   width: 100%;
   padding: 14px;
-  border-radius: 10px;
-  font-family: 'Cinzel Decorative', cursive;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  box-shadow: var(--border-gold-glow);
-}
-
-.btn-checkout:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-}
-
-/* Notificaciones de Abordaje (Toasts) */
-.toast-container {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.toast-msg {
-  background: rgba(13, 18, 28, 0.95);
-  backdrop-filter: blur(15px);
-  color: var(--text-parchment);
-  border: 1px solid var(--gold-antique);
-  padding: 14px 22px;
-  border-radius: 10px;
-  font-family: 'IM Fell English', serif;
-  font-size: 1.05rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-  border-left: 4px solid var(--gold-antique);
-  animation: toastPirate 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes toastPirate {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Skeleton Loaders Estilo Pergamino Oscuro */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.skeleton-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-pirate);
-  border-radius: 12px;
-  padding: 20px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.skeleton-img, .skeleton-line {
-  background: linear-gradient(90deg, #111722 25%, #1a2333 50%, #111722 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
   border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
 }
 
-.skeleton-img { height: 200px; width: 100%; }
-.skeleton-line { height: 24px; width: 85%; }
-.skeleton-line.short { width: 45%; }
+.btn-checkout:active {
+  transform: scale(0.98);
+}
+
+/* Escritorio */
+@media (min-width: 768px) {
+  .hero-banner h2 { font-size: 4rem; }
+  .product-grid { gap: 2.5rem; }
+  .card-img-container { height: 280px; }
+  
+  /* Muerte absoluta al blur en escritorio para matar el lag */
+  .product-modal, .cart-modal {
+    background: rgba(7, 9, 14, 0.98); /* Fondo oscuro súper sólido */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

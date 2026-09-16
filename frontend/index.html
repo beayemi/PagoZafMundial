@@ -2,42 +2,80 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>El Botín del Mar | Hermandad de la Costa</title>
+  <meta name="description" content="Provisiones y botines para los hermanos de la costa. Aceptamos monedas locales e internacionales.">
+  
+  <!-- Preconnect para acelerar la descarga de tipografías (Performance+) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Fuentes unificadas con el CSS para evitar cargas dobles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Pirata+One&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Script con defer para no bloquear el renderizado del HTML -->
+  <script src="app.js" defer></script>
+  
+  <!-- Estilos del modal refactorizados (cero inline-styles) -->
+  <style>
+    .modal-prod-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border-pirate);
+      margin-bottom: 1rem;
+    }
+    .modal-prod-desc {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.2rem;
+      color: var(--text-parchment);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .modal-prod-extra {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+    }
+  </style>
 </head>
 <body>
 
   <header class="pirate-header">
     <div class="logo-area">
-      <span class="skull-icon">☠️</span>
+      <span class="skull-icon" aria-hidden="true">☠️</span>
       <h1>Hermandad de la Costa</h1>
     </div>
-    <div class="lang-selector">
-      <button class="btn-lang" onclick="changeLanguage('es')">🇪🇸 ES</button>
-      <button class="btn-lang" onclick="changeLanguage('en')">🇬🇧 EN</button>
-    </div>
-    <div class="cart-trigger" id="cartTrigger">
-      <span>📜 Cofre de Compras</span>
+    
+    <nav class="lang-selector" aria-label="Selector de idioma">
+      <button class="btn-lang" aria-label="Cambiar a Español">🇪🇸 ES</button>
+      <button class="btn-lang" aria-label="Cambiar a Inglés">🇬🇧 EN</button>
+    </nav>
+    
+    <button class="cart-trigger" id="cartTrigger" aria-label="Abrir cofre de compras">
+      <span aria-hidden="true">📜</span>
+      <span class="cart-label">Cofre</span>
       <span class="badge" id="cartCount">0</span>
-    </div>
+    </button>
   </header>
 
-  <div id="productModal" class="product-modal">
-    <div class="product-content" style="text-align: center;">
-      <div class="product-header">
+  <!-- Modal de Producto -->
+  <div id="productModal" class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalProdTitle">
+    <article class="product-content" style="text-align: center;">
+      <header class="product-header">
         <h3 id="modalProdTitle"></h3>
-        <button class="close-btn" id="closeProductModal">&times;</button>
+        <button class="close-btn" id="closeProductModal" aria-label="Cerrar detalles">&times;</button>
+      </header>
+      <div class="cart-body">
+        <img id="modalProdImg" src="" alt="Imagen del botín" class="modal-prod-image" loading="lazy">
+        <p id="modalProdDesc" class="modal-prod-desc"></p>
+        <div id="modalProdExtra" class="modal-prod-extra"></div>
       </div>
-      <div class="cart-body" style="padding: 1rem 0;">
-        <img id="modalProdImg" src="" alt="" style="width: 100%; height: 250px; object-fit: cover; border-radius: 6px; border: 2px solid var(--wood-light); margin-bottom: 1rem;">
-        <p id="modalProdDesc" style="font-family: 'Crimson Text', serif; font-size: 1.2rem; color: var(--text-dark); margin-bottom: 1.5rem;"></p>
-        <div id="modalProdExtra" style="font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: bold; color: var(--wood-dark);"></div>
-      </div>
-    </div>
+    </article>
   </div>
 
   <main class="container">
@@ -46,26 +84,35 @@
       <p id="hero-subtitle">Selecciona tus provisiones, grumete. Aceptamos monedas locales e internacionales.</p>
     </section>
 
-    <div class="product-grid" id="productGrid"></div>
+    <!-- El Grid ahora es una sección semántica -->
+    <section class="product-grid" id="productGrid" aria-label="Lista de provisiones">
+      <!-- El JS inyectará los productos aquí -->
+    </section>
   </main>
 
-  <div class="cart-modal" id="cartModal">
-    <div class="cart-content">
-      <div class="cart-header">
-        <h3>💰 <span id="cart-title-text">Tu Botín Seleccionado</span></h3>
-        <button class="close-btn" id="closeCart">&times;</button>
+  <!-- Modal del Carrito -->
+  <div class="cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cart-title-text">
+    <aside class="cart-content">
+      <header class="cart-header">
+        <h3><span aria-hidden="true">💰</span> <span id="cart-title-text">Tu Botín Seleccionado</span></h3>
+        <button class="close-btn" id="closeCart" aria-label="Cerrar cofre">&times;</button>
+      </header>
+      
+      <div class="cart-items-container" id="cartItems">
+        <!-- Items del carrito -->
       </div>
-      <div class="cart-body" id="cartItems"></div>
-      <div class="cart-footer">
-        <div class="total-row">
+      
+      <footer class="cart-footer">
+        <div class="cart-total-row">
           <span>Total:</span>
           <span id="cartTotal">$0 CLP</span>
         </div>
-        <button class="btn-pirate" id="checkoutBtn">Pagar con Mercado Pago 💳</button>
-      </div>
-    </div>
+        <button class="btn-checkout" id="checkoutBtn">Pagar con Mercado Pago 💳</button>
+      </footer>
+    </aside>
   </div>
 
+  <!-- Diccionario de Traducciones -->
   <script>
     const translations = {
       es: {
@@ -90,26 +137,44 @@
       }
     };
 
-    // Reemplaza los IDs (1, 2, 3...) por los que realmente te devuelva tu base de datos si usa _id de MongoDB
-    const productTranslations = {
-      "1": {
-        es: { title: "Tentáculo de Kraken", description: "Recién cortado de la bestia marina." },
-        en: { title: "Kraken Tentacle", description: "Freshly cut from the beast itself." }
-      },
-      "2": {
-        es: { title: "Escamas de Sirena", description: "Escamas brillantes encontradas en el abismo profundo." },
-        en: { title: "Mermaid Scales", description: "Shimmering scales found in the deep abyss." }
-      },
-      "3": {
-        es: { title: "Doblon Maldito", description: "Una moneda antigua que susurra en la oscuridad." },
-        en: { title: "Cursed Doubloon", description: "An ancient coin that whispers in the dark." }
-      },
-      "4": {
-        es: { title: "Ron de Naufragio", description: "Añejado 50 años en el fondo del mar." },
-        en: { title: "Shipwreck Rum", description: "Aged 50 years at the bottom of the sea." }
-      }
-    };
+const productTranslations = {
+  "p1": {
+    es: { title: "Ron Reserva del Capitán", description: "Un fino licor añejado para mantener alta la moral durante la tormenta." },
+    en: { title: "Captain's Reserve Rum", description: "A fine aged spirit to keep morale high during the storm." }
+  },
+  "p2": {
+    es: { title: "Mapa del Tesoro Encintado", description: "Señala oro oculto en las profundidades de los mares del sur." },
+    en: { title: "Ribboned Treasure Map", description: "Points to hidden gold in the depths of the southern seas." }
+  },
+  "p3": {
+    es: { title: "Catalejo de Bronce Pirata", description: "Un confiable instrumento de latón para divisar barcos e islas lejanas." },
+    en: { title: "Pirate Bronze Spyglass", description: "A trusty brass instrument to spot distant ships and islands." }
+  },
+  "p4": {
+    es: { title: "Mate de Madera Curada", description: "Recipiente artesanal, ideal para cebar una yerba suave y mantener el calor en cubierta." },
+    en: { title: "Cured Wooden Mate", description: "Handcrafted vessel, ideal for brewing smooth herbs and keeping warm on deck." }
+  },
+  "p5": {
+    es: { title: "Bombilla de Plata Forjada", description: "Filtro de metal resistente al salitre, un compañero fiel en alta mar." },
+    en: { title: "Forged Silver Bombilla", description: "Salt-resistant metal filter, a faithful companion on the high seas." }
+  },
+  "p6": {
+    es: { title: "Reloj de Navegación Fenix", description: "Cronómetro avanzado para medir las constantes vitales y pagar los suministros en el puerto con un solo toque." },
+    en: { title: "Fenix Navigation Watch", description: "Advanced chronometer to track vitals and pay for supplies at the port with a single tap." }
+  },
+  "p7": {
+    es: { title: "Naipe del Caballero", description: "Una reliquia de cartón brillante. Solo los duelistas más hábiles pueden controlar su poder." },
+    en: { title: "Knight's Playing Card", description: "A shiny cardboard relic. Only the most skilled duelists can control its power." }
+  },
+  "p8": {
+    es: { title: "Serpiente Siniestra en Frasco", description: "Espécimen raro capturado en el abismo. Cuidado al abrirlo, dicen que aún muerde." },
+    en: { title: "Sinister Serpent in a Jar", description: "Rare specimen caught in the abyss. Careful when opening, they say it still bites." }
+  },
+  "p9": {
+    es: { title: "Bitácora del Bichicuma", description: "Cuaderno de cuero grueso para registrar las travesías y las hazañas de la hermandad." },
+    en: { title: "Deckhand's Logbook", description: "Thick leather notebook to record the voyages and exploits of the brotherhood." }
+  }
+};
   </script>
-  <script src="app.js"></script>
 </body>
 </html>
