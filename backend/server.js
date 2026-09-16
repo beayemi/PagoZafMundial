@@ -33,7 +33,6 @@ app.post('/api/create-preference', async (req, res) => {
     for (const item of items) {
       const dbProduct = products.find(p => p.id === item.id);
       if (!dbProduct || dbProduct.stock < item.quantity) {
-        // Agregamos return para detener la función aquí y no enviar múltiples respuestas
         return res.status(400).json({ error: `Stock insuficiente para: ${dbProduct?.title || item.id}` });
       }
 
@@ -46,39 +45,40 @@ app.post('/api/create-preference', async (req, res) => {
       });
     }
 
+    // ACA ESTÁ EL CAMBIO DE LAS URLS
+    // ⚠️ REEMPLAZA "https://tu-proyecto-en.vercel.app" POR TU LINK DE VERCEL REAL ⚠️
+    const FRONTEND_URL = 'https://tu-proyecto-en.vercel.app'; 
+
     const preference = new Preference(client);
     const result = await preference.create({
       body: {
         items: mpItems,
         back_urls: {
-          success: 'http://127.0.0.1:5500/frontend/index.html?status=success',
-          failure: 'http://127.0.0.1:5500/frontend/index.html?status=failure',
-          pending: 'http://127.0.0.1:5500/frontend/index.html?status=pending'
-        }
+          success: `${FRONTEND_URL}/?status=success`,
+          failure: `${FRONTEND_URL}/?status=failure`,
+          pending: `${FRONTEND_URL}/?status=pending`
+        },
+        auto_return: 'approved' // Para que devuelva al usuario a tu web automáticamente
       }
     });
 
     return res.json({ init_point: result.init_point });
   } catch (error) {
     console.error('Error al crear preferencia:', error);
-    // Agregamos return también en el catch por seguridad
     return res.status(500).json({ error: 'Error interno del servidor de pago' });
   }
 });
 
-// Webhook para descontar el stock tras pago confirmado por Mercado Pago
 app.post('/api/webhook', (req, res) => {
   const { type, data } = req.body;
-  
   if (type === 'payment') {
-    // En producción podrías consultar el pago a MP y descontar el stock de `products.json`
     console.log('Pago recibido id:', data.id);
   }
-  
   res.sendStatus(200);
 });
 
-const PORT = 3001;
+// ACA ESTÁ EL CAMBIO DEL PUERTO PARA RENDER
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🏴‍☠️ Servidor de la Hermandad corriendo en http://localhost:${PORT}`);
+  console.log(`🏴‍☠️ Servidor de la Hermandad corriendo en el puerto ${PORT}`);
 });
